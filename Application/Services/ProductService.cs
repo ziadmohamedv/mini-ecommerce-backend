@@ -21,6 +21,12 @@ namespace Application.Services
 
         public async Task<ProductDto> CreateProductAsync(CreateProductDto dto)
         {
+            var existingProduct = await _productRepository.GetByNameAsync(dto.Name);
+            if (existingProduct != null)
+            {
+                throw new InvalidOperationException($"A product with the name '{dto.Name}' already exists.");
+            }
+
             var product = new Product
             {
                 Name = dto.Name,
@@ -50,6 +56,25 @@ namespace Application.Services
                 Price = p.Price,
                 Quantity = p.Quantity
             }).ToList();
+        }
+
+        public async Task<PagedResult<ProductDto>> GetProductsAsync(int pageNumber, int pageSize)
+        {
+            var (products, totalCount) = await _productRepository.GetPagedAsync(pageNumber, pageSize);
+
+            return new PagedResult<ProductDto>
+            {
+                Items = products.Select(p => new ProductDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Quantity = p.Quantity
+                }).ToList(),
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount
+            };
         }
     }
 }

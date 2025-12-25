@@ -11,5 +11,6 @@ namespace Application.Interfaces
     {
         Task<ProductDto> CreateProductAsync(CreateProductDto dto);
         Task<List<ProductDto>> GetAllProductsAsync();
+        Task<PagedResult<ProductDto>> GetProductsAsync(int pageNumber, int pageSize);
     }
 }

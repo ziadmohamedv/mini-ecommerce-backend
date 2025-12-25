@@ -1,0 +1,20 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# EF / local db
+*.db
+
+# OS
+.DS_Store
+Thumbs.db
