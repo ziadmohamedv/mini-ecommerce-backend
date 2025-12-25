@@ -42,6 +42,7 @@ Endpoints :
 Products
 POST	/api/products	Create a new product	Parameters: name, price, quantity
 GET		/api/products	Get all products		Parameters: none
+GET     /api/products?pageNumber={pageNumber}&pageSize={pageSize}  Get products with pagination  Parameters: pageNumber, pageSize
 
 Orders
 POST	/api/orders			Create a new order			Parameters: customerName, customerEmail, items[]
@@ -265,3 +266,9 @@ Body:
 }
 Expected Response:
 Status: 400 Bad Request
+
+>Test Case 15: Get All Products With Pagination
+Request:
+GET {{baseUrl}}/api/products?pageNumber=1&pageSize=5
+Expected Response:
+Status: 200 OK
